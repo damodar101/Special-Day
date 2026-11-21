@@ -30,11 +30,20 @@ section{padding:85px 0}.section-title{text-align:center;font:600 clamp(2rem,5vw,
 .last-surprise.show{display:inline-block;animation:revealIn .7s ease both}
 .fall-word{font-size:clamp(12px,2vw,19px);font-weight:700;letter-spacing:.12em;color:#fff0f5;text-shadow:0 2px 14px #ff6d9e,0 0 24px #ff9fbd;background:#8f315d99;border:1px solid #ffd3e355;border-radius:99px;padding:8px 12px;white-space:nowrap}@keyframes drop{to{transform:translate3d(var(--drift),115vh,0) rotate(650deg);opacity:.2}}
 footer{text-align:center;color:#c9a7ba;padding:0 0 35px;font-size:.75rem}
+#ambientParticles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.ambient-particle{position:absolute;top:-8vh;left:var(--x);font-size:var(--size);line-height:1;opacity:0;color:#ffd0df;text-shadow:0 0 12px #ff9fbd;animation:ambientFall var(--duration) linear forwards;will-change:transform,opacity}
+@keyframes ambientFall{0%{transform:translate3d(0,-8vh,0) rotate(0deg);opacity:0}12%{opacity:var(--opacity)}88%{opacity:var(--opacity)}100%{transform:translate3d(var(--drift),115vh,0) rotate(360deg);opacity:0}}
+.counter .unit{min-width:92px}
+.counter .unit strong{font-variant-numeric:tabular-nums}
+.counter-caption{color:#e6c5d3;text-align:center;font-size:.8rem;margin-top:-12px}
+.hero,main,footer{position:relative;z-index:3}
+
 @media(max-width:680px){.moments{grid-template-columns:repeat(2,1fr);gap:11px}.moment{min-height:180px}.hero{padding-top:65px}.unit{min-width:72px}.unit strong{font-size:1.65rem}section{padding:65px 0}}
 @media(max-width:390px){.moments{grid-template-columns:1fr 1fr}.moment{aspect-ratio:3/4;min-height:145px}}
 </style>
 </head>
 <body>
+<div id="ambientParticles" aria-hidden="true"></div>
 <div id="celebration"></div>
 <header class="hero">
  <div class="wrap">
@@ -65,10 +74,14 @@ footer{text-align:center;color:#c9a7ba;padding:0 0 35px;font-size:.75rem}
 <section><div class="wrap">
  <h2 class="section-title">Look how far we've come</h2>
  <p class="section-sub">Our story began on 22 June 2026. And today, we get to celebrate five months of us.</p>
- <div class="counter">
-  <div class="glass unit"><strong>5</strong><small>Months</small></div><div class="glass unit"><strong>♡</strong><small>Memories</small></div><div class="glass unit"><strong>∞</strong><small>More to come</small></div>
- </div>
-</div></section>
+ <div class="counter" id="timeCounter" aria-live="off">
+   <div class="glass unit"><strong id="daysCount">0</strong><small>Days</small></div>
+   <div class="glass unit"><strong id="hoursCount">00</strong><small>Hours</small></div>
+   <div class="glass unit"><strong id="minutesCount">00</strong><small>Minutes</small></div>
+   <div class="glass unit"><strong id="secondsCount">00</strong><small>Seconds</small></div>
+  </div>
+  <p class="counter-caption">Every second since 22 June 2026, and counting. ♥</p>
+ </div></section>
 <section class="final" id="surprise"><div class="wrap">
  <div class="glass final-card">
   <div class="eyebrow">One last little surprise</div>
@@ -90,6 +103,44 @@ footer{text-align:center;color:#c9a7ba;padding:0 0 35px;font-size:.75rem}
 <div class="music-hint" id="musicHint"></div>
 <audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
 <script>
+// Live relationship counter: 22 June 2026 at local midnight.
+const relationshipStart = new Date(2026, 5, 22, 0, 0, 0).getTime();
+function updateTimeCounter(){
+  const elapsed = Math.max(0, Date.now() - relationshipStart);
+  const totalSeconds = Math.floor(elapsed / 1000);
+  const values = {
+    daysCount: Math.floor(totalSeconds / 86400).toLocaleString(),
+    hoursCount: String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0'),
+    minutesCount: String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0'),
+    secondsCount: String(totalSeconds % 60).padStart(2, '0')
+  };
+  Object.entries(values).forEach(([id, value]) => {
+    const node = document.getElementById(id);
+    if (node) node.textContent = value;
+  });
+}
+updateTimeCounter();
+setInterval(updateTimeCounter, 1000);
+
+// Continuous decorative particles across the viewport.
+const ambientLayer = document.getElementById('ambientParticles');
+const ambientSymbols = ['♡', '✦', '✧', '♥', '·'];
+function addAmbientParticle(){
+  if (!ambientLayer) return;
+  const particle = document.createElement('span');
+  particle.className = 'ambient-particle';
+  particle.textContent = ambientSymbols[Math.floor(Math.random() * ambientSymbols.length)];
+  particle.style.setProperty('--x', Math.random() * 100 + 'vw');
+  particle.style.setProperty('--size', (Math.random() * 10 + 9) + 'px');
+  particle.style.setProperty('--duration', (Math.random() * 7 + 8) + 's');
+  particle.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+  particle.style.setProperty('--opacity', (Math.random() * 0.35 + 0.2).toFixed(2));
+  ambientLayer.appendChild(particle);
+  particle.addEventListener('animationend', () => particle.remove(), { once: true });
+}
+for (let i = 0; i < 24; i++) setTimeout(addAmbientParticle, i * 220);
+setInterval(addAmbientParticle, 420);
+
 const music=document.getElementById('bgMusic'), musicBtn=document.getElementById('musicToggle'), musicHint=document.getElementById('musicHint');
 function setMusicState(on){musicBtn.textContent=on?'♫ Song: On':'♫ Song: Off';musicBtn.classList.toggle('playing',on);musicBtn.setAttribute('aria-pressed',String(on));}
 async function startMusic(){try{await music.play();setMusicState(true);musicHint.style.display='none';}catch(e){setMusicState(false);musicHint.style.display='block';}}
@@ -131,56 +182,60 @@ const formedMessage=document.getElementById('formedMessage');
 const lastSurpriseBtn=document.getElementById('lastSurpriseBtn');
 
 function heartPoints(){
-  const points=[];
-  // Sample a classic heart curve and normalize it into the display area.
-  for(let i=0;i<42;i++){
-    const t=(Math.PI*2*i)/42;
-    const x=16*Math.pow(Math.sin(t),3);
-    const y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
-    points.push({x:50+x*1.45,y:48+y*1.45});
+  const points = [];
+  for(let i = 0; i < 42; i++){
+    const t = (Math.PI * 2 * i) / 42;
+    const x = 16 * Math.pow(Math.sin(t), 3);
+    const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+    points.push({x: 50 + x * 1.45, y: 48 + y * 1.45});
   }
   return points;
 }
+
 function launchFallingHearts(target, message, done){
-  celebration.innerHTML='';
-  celebration.classList.add('show');
-  const points=heartPoints();
-  const emojis=['💗','💖','💕','💞','❤️'];
-  points.forEach((point,i)=>{
-    const el=document.createElement('span');
-    el.className='fall formed-heart';
-    el.textContent=emojis[i%emojis.length];
-    el.style.left=point.x+'%';
-    el.style.top=point.y+'%';
-    el.style.setProperty('--drift',(Math.random()*70-35)+'px');
-    el.style.animationDelay=(i*0.055)+'s';
-    el.style.animationDuration='1.05s';
-    target.appendChild(el);
+  if (!target || !message) return;
+  target.innerHTML = '';
+  message.classList.remove('show');
+  const points = heartPoints();
+  const emojis = ['💗','💖','💕','💞','❤️'];
+
+  points.forEach((point, i) => {
+    const heart = document.createElement('span');
+    heart.className = 'formed-heart';
+    heart.textContent = emojis[i % emojis.length];
+    heart.style.left = point.x + '%';
+    heart.style.top = point.y + '%';
+    heart.style.animationDelay = (i * 0.045) + 's';
+    target.appendChild(heart);
   });
-  setTimeout(()=>{
-    celebration.classList.remove('show');
+
+  // Wait until all hearts have landed, then reveal the message.
+  window.setTimeout(() => {
     message.classList.add('show');
-    if(done)done();
-  },3400);
+    if (typeof done === 'function') done();
+  }, 42 * 45 + 900);
 }
-surpriseBtn.addEventListener('click',()=>{
-  surpriseBtn.style.display='none';
+
+surpriseBtn.addEventListener('click', () => {
+  surpriseBtn.style.display = 'none';
   loveReveal.classList.add('show');
-  launchFallingHearts(heartFormation,formedMessage,()=>{
+  formedMessage.textContent = 'I LOVE YOU MERO MUTU💗';
+  formedMessage.style.visibility = 'visible';
+  launchFallingHearts(heartFormation, formedMessage, () => {
     lastSurpriseBtn.classList.add('show');
   });
 });
-lastSurpriseBtn.addEventListener('click',()=>{
-  lastSurpriseBtn.style.display='none';
-  // Fully hide and clear the first message before starting the second heart formation.
+
+lastSurpriseBtn.addEventListener('click', () => {
+  lastSurpriseBtn.style.display = 'none';
   formedMessage.classList.remove('show');
-  formedMessage.style.visibility='hidden';
-  formedMessage.textContent='';
-  heartFormation.innerHTML='';
-  // The anniversary words are inserted only AFTER the heart emojis finish forming.
-  launchFallingHearts(heartFormation,formedMessage,()=>{
-    formedMessage.innerHTML='HAPPY 5 MONTHS<br>OF US<br><span style="color:#ff9fbd">MERO MUTU ♥</span>';
-    formedMessage.style.visibility='visible';
+  formedMessage.style.visibility = 'hidden';
+  formedMessage.textContent = '';
+  heartFormation.innerHTML = '';
+
+  launchFallingHearts(heartFormation, formedMessage, () => {
+    formedMessage.innerHTML = 'HAPPY 5 MONTHS<br>OF US<br><span style="color:#ff9fbd">MERO MUTU ♥</span>';
+    formedMessage.style.visibility = 'visible';
     formedMessage.classList.add('show');
   });
 });
