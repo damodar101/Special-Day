@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2b1025">
+<title>Five Months of Us · Mero Mutu</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+:root{--pink:#ff9fbd;--rose:#ffd0df;--cream:#fff4f0;--ink:#35182b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--cream);font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 20% 5%,#6e3157 0,transparent 36%),radial-gradient(ellipse at 90% 30%,#4a244c 0,transparent 32%),linear-gradient(145deg,#1b1022,#35152d 55%,#1d1021);overflow-x:hidden}
+button,input{font:inherit}.wrap{width:min(1050px,92%);margin:auto}.hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:80px 0 65px;position:relative;isolation:isolate}.hero:before{content:"";position:absolute;width:min(75vw,620px);aspect-ratio:1;border:1px solid #ffffff35;border-radius:50%;background:linear-gradient(135deg,rgba(35,12,31,.52),rgba(35,12,31,.40)),url('hero.png') center/cover no-repeat;box-shadow:0 0 100px #ff8db52b,inset 0 0 90px #ff8db51b;z-index:-1;opacity:.92}
+.eyebrow{letter-spacing:.25em;text-transform:uppercase;font-size:.72rem;color:#ffc3d4}.hero h1{font:600 clamp(3rem,9vw,6.8rem)/1.03 'Playfair Display',serif;margin:22px 0 16px}.hero h1 span{color:var(--pink);font-style:italic}.hero p{max-width:620px;margin:0 auto;color:#f4dce7;line-height:1.8;font-size:1.02rem}.date-pill{display:inline-flex;gap:10px;align-items:center;border:1px solid #ffffff30;background:#ffffff0d;border-radius:99px;padding:11px 18px;margin:28px 0;color:#ffe2ec;font-size:.86rem;backdrop-filter:blur(10px)}.heart{color:#ff8fb3}.primary,.soft{border:0;border-radius:99px;padding:14px 23px;cursor:pointer;transition:.2s}.primary{background:linear-gradient(110deg,#ff9fbd,#ffd1dc);color:#421b31;font-weight:700;box-shadow:0 10px 35px #ff8fb52b}.primary:hover,.soft:hover{transform:translateY(-2px)}.soft{color:#ffe4ed;background:#ffffff12;border:1px solid #ffffff30}.scroll{margin-top:45px;color:#d9b7c9;font-size:.75rem;letter-spacing:.16em}
+section{padding:85px 0}.section-title{text-align:center;font:600 clamp(2rem,5vw,3.5rem) 'Playfair Display',serif;margin:0 0 12px}.section-sub{text-align:center;color:#e2c5d3;line-height:1.7;margin:0 auto 38px;max-width:620px}.glass{background:linear-gradient(145deg,#ffffff13,#ffffff07);border:1px solid #ffffff20;border-radius:26px;box-shadow:0 20px 70px #09040c38;backdrop-filter:blur(16px)}
+.story{max-width:780px;margin:auto;padding:clamp(25px,5vw,48px);text-align:center}.story .big{font:italic 1.5rem 'Playfair Display',serif;color:#ffc2d4;line-height:1.5}.story p{color:#f2dce6;line-height:1.95;margin:18px 0 0}
+.moments{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.moment{min-height:220px;aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(145deg,#ffffff18,#ffffff08);border:1px dashed #ffffff55;display:grid;place-items:center;text-align:center;color:#e9cbd8}.moment img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0}.moment .placeholder{padding:20px;z-index:1}.moment .placeholder b{display:block;font:1.25rem 'Playfair Display',serif;color:#ffe3ec;margin:10px}.moment .remove{position:absolute;z-index:2;top:10px;right:10px;border:0;background:#2a1026c9;color:white;border-radius:50%;width:32px;height:32px;cursor:pointer}.upload-row{text-align:center;margin-top:25px}.hint{font-size:.8rem;color:#d5b6c7;margin-top:12px}.memory-note{max-width:700px;margin:25px auto 0;padding:20px;text-align:center;color:#f4dce7;line-height:1.7}
+.counter{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:28px 0}.unit{min-width:92px;padding:18px 12px;text-align:center}.unit strong{display:block;font:600 2rem 'Playfair Display',serif;color:#ffc0d3}.unit small{font-size:.68rem;letter-spacing:.15em;color:#e6c5d3;text-transform:uppercase}
+.final{padding:95px 0 125px;text-align:center;position:relative;overflow:hidden}.final-card{max-width:800px;margin:auto;padding:clamp(28px,6vw,58px)}.final h2{font:600 clamp(2.6rem,8vw,5.7rem)/1.1 'Playfair Display',serif;color:#ffd0df;margin:10px 0 20px}.final p{color:#f5dce7;line-height:1.9;max-width:590px;margin:0 auto}.final .sign{font:italic 1.5rem 'Playfair Display',serif;color:#ffb6cc;margin-top:25px}
+.music{position:fixed;bottom:18px;right:18px;z-index:20;border:1px solid #ffffff35;border-radius:99px;background:#35152de8;color:#ffe8ef;padding:12px 17px;box-shadow:0 8px 30px #0005;cursor:pointer;backdrop-filter:blur(12px)}.music.playing{background:#ffb2c9;color:#42182f}.music-hint{position:fixed;bottom:67px;right:18px;z-index:19;background:#fff0f5;color:#481b34;border-radius:14px;padding:10px 13px;font-size:.75rem;box-shadow:0 8px 25px #0003;max-width:220px}
+#celebration{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden;display:none}#celebration.show{display:block}.fall{position:absolute;top:-12vh;animation:drop linear forwards;opacity:.95}.fall.heartfall{font-size:clamp(18px,3vw,34px)}
+.reply-note{margin:22px auto 0!important;color:#ffc4d6!important;font:italic 1.05rem 'Playfair Display',serif!important}.love-reveal{display:none;margin:30px auto 0;max-width:650px;text-align:center}
+.love-reveal.show{display:block;animation:revealIn .8s ease both}
+@keyframes revealIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.heart-formation{position:relative;width:min(82vw,360px);height:min(72vw,315px);margin:0 auto 8px}
+.heart-formation .formed-heart{position:absolute;transform:translate(-50%,-50%);font-size:clamp(19px,4vw,31px);filter:drop-shadow(0 0 9px #ff8db5);animation:heartLand .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes heartLand{from{opacity:0;transform:translate(-50%,-160vh) scale(.6) rotate(-35deg)}to{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}}
+.formed-message{font:600 clamp(2rem,7vw,3.5rem) 'Playfair Display',serif;letter-spacing:.13em;color:#ffd0df;text-shadow:0 0 25px #ff82ae;opacity:0;transform:scale(.7);transition:all .8s ease}
+.formed-message.show{opacity:1;transform:scale(1)}
+.last-surprise{display:none;margin:25px auto 0}
+.last-surprise.show{display:inline-block;animation:revealIn .7s ease both}
+.fall-word{font-size:clamp(12px,2vw,19px);font-weight:700;letter-spacing:.12em;color:#fff0f5;text-shadow:0 2px 14px #ff6d9e,0 0 24px #ff9fbd;background:#8f315d99;border:1px solid #ffd3e355;border-radius:99px;padding:8px 12px;white-space:nowrap}@keyframes drop{to{transform:translate3d(var(--drift),115vh,0) rotate(650deg);opacity:.2}}
+footer{text-align:center;color:#c9a7ba;padding:0 0 35px;font-size:.75rem}
+@media(max-width:680px){.moments{grid-template-columns:repeat(2,1fr);gap:11px}.moment{min-height:180px}.hero{padding-top:65px}.unit{min-width:72px}.unit strong{font-size:1.65rem}section{padding:65px 0}}
+@media(max-width:390px){.moments{grid-template-columns:1fr 1fr}.moment{aspect-ratio:3/4;min-height:145px}}
+</style>
+</head>
+<body>
+<div id="celebration"></div>
+<header class="hero">
+ <div class="wrap">
+  <div class="eyebrow">A little celebration of us</div>
+  <h1>Five months,<br><span>one beautiful us.</span></h1>
+  <p>Some people make ordinary days feel softer, brighter, and a little more magical. You have been that person for me, mero mutu.</p>
+  <div class="date-pill"><span class="heart">♥</span> Since 22 June 2026 <span class="heart">♥</span></div><br>
+  <button class="primary" onclick="document.querySelector('#our-story').scrollIntoView({behavior:'smooth'})">Open our little story ↓</button>
+  <div class="scroll">MADE WITH A LITTLE EXTRA LOVE</div>
+ </div>
+</header>
+<main>
+<section id="our-story"><div class="wrap">
+ <h2 class="section-title">To my favourite person</h2>
+ <p class="section-sub">Five months may sound like a small number, but the memories and feelings tucked inside them mean so much.</p>
+ <div class="glass story">
+  <div class="big">“If I could keep one feeling in my pocket, it would be the happiness I feel when I'm with you.”</div>
+  <p>Mero mutu, thank you for every conversation, every laugh, every little moment, and even the quiet times. I don't know how you do it, but you make my days feel special just by being part of them. I may not always find the perfect words, but I hope you never doubt how much I appreciate you. Here's to the memories we've made and all the lovely ones still waiting for us. ❤️</p>
+ </div>
+</div></section>
+<section id="moments"><div class="wrap">
+ <h2 class="section-title">Our little memory lane</h2>
+ <p class="section-sub">A place for the moments I never want to forget. Add your favourite photos below. 💗</p>
+ <div class="moments" id="gallery"></div>
+ <div class="upload-row"><div class="hint">Our photos are added directly in the website files. Put your pictures in the <b>photos</b> folder and list their filenames in the <b>ourPhotos</b> array inside index.html.</div></div>
+ <div class="glass memory-note">I hope we keep collecting little moments — silly pictures, random smiles, long talks, and days that become our favourite stories.</div>
+</div></section>
+<section><div class="wrap">
+ <h2 class="section-title">Look how far we've come</h2>
+ <p class="section-sub">Our story began on 22 June 2026. And today, we get to celebrate five months of us.</p>
+ <div class="counter">
+  <div class="glass unit"><strong>5</strong><small>Months</small></div><div class="glass unit"><strong>♡</strong><small>Memories</small></div><div class="glass unit"><strong>∞</strong><small>More to come</small></div>
+ </div>
+</div></section>
+<section class="final" id="surprise"><div class="wrap">
+ <div class="glass final-card">
+  <div class="eyebrow">One last little surprise</div>
+  <h2>Happy 5 Months<br>of Us!</h2>
+  <p>Mero mutu, thank you for being a beautiful part of my life. I hope this is just one of many little anniversaries we'll get to celebrate together. Keep smiling, keep being you, and remember that you are truly special to me.</p>
+  <div class="sign">With all my heart, always ♥</div>
+  <p class="reply-note">P.S. Someone is waiting for your reply… with a little nervous smile and a lot of hope. 💌</p>
+  <button class="primary" id="surpriseBtn" style="margin-top:30px">A little message for you 💗</button>
+  <div id="loveReveal" class="love-reveal" aria-live="polite">
+    <div class="heart-formation" id="heartFormation"></div>
+    <div class="formed-message" id="formedMessage">I LOVE YOU</div>
+    <button class="primary last-surprise" id="lastSurpriseBtn">One last surprise… 💞</button>
+  </div>
+ </div>
+</div></section>
+</main>
+<footer>Made for you, mero mutu · 22.06.2026 — 22.11.2026</footer>
+<button class="music" id="musicToggle" type="button" aria-pressed="false">♫ Song: Off</button>
+<div class="music-hint" id="musicHint"></div>
+<audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
+<script>
+const music=document.getElementById('bgMusic'), musicBtn=document.getElementById('musicToggle'), musicHint=document.getElementById('musicHint');
+function setMusicState(on){musicBtn.textContent=on?'♫ Song: On':'♫ Song: Off';musicBtn.classList.toggle('playing',on);musicBtn.setAttribute('aria-pressed',String(on));}
+async function startMusic(){try{await music.play();setMusicState(true);musicHint.style.display='none';}catch(e){setMusicState(false);musicHint.style.display='block';}}
+musicBtn.addEventListener('click',async()=>{if(music.paused){await startMusic();}else{music.pause();setMusicState(false);}});
+window.addEventListener('load',()=>{startMusic();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden && music.paused && music.dataset.userStarted==='yes')startMusic();});
+musicBtn.addEventListener('click',()=>{music.dataset.userStarted='yes';});
+// Add your photos here. Put image files inside the "photos" folder.
+// Example: { src: "photos/photo1.jpg", caption: "Our first memory" }
+const ourPhotos = [
+  { src: "photo1.jpg", caption: "Our first memory" },
+  { src: "photo2.png", caption: "That lovely day" },
+  { src: "photo3.png", caption: "Your favourite smile" },
+  { src: "photo4.png", caption: "A moment to keep" },
+  { src: "photo5.png", caption: "Just us" },
+  { src: "photo6.JPG", caption: "More memories" }
+];
+const gallery = document.getElementById('gallery');
+ourPhotos.forEach((photo, index) => {
+  const card = document.createElement('div');
+  card.className = 'moment';
+  const img = document.createElement('img');
+  img.src = photo.src;
+  img.alt = photo.caption || ('Our memory ' + (index + 1));
+  img.loading = 'lazy';
+  img.onerror = () => {
+    card.innerHTML = '<div class="placeholder">♡<b>' +
+      (photo.caption || 'Our memory') +
+      '</b><span>Add ' + photo.src + ' to the photos folder</span></div>';
+  };
+  card.appendChild(img);
+  gallery.appendChild(card);
+});
+const surpriseBtn=document.getElementById('surpriseBtn');
+const celebration=document.getElementById('celebration');
+const loveReveal=document.getElementById('loveReveal');
+const heartFormation=document.getElementById('heartFormation');
+const formedMessage=document.getElementById('formedMessage');
+const lastSurpriseBtn=document.getElementById('lastSurpriseBtn');
+
+function heartPoints(){
+  const points=[];
+  // Sample a classic heart curve and normalize it into the display area.
+  for(let i=0;i<42;i++){
+    const t=(Math.PI*2*i)/42;
+    const x=16*Math.pow(Math.sin(t),3);
+    const y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    points.push({x:50+x*1.45,y:48+y*1.45});
+  }
+  return points;
+}
+function launchFallingHearts(target, message, done){
+  celebration.innerHTML='';
+  celebration.classList.add('show');
+  const points=heartPoints();
+  const emojis=['💗','💖','💕','💞','❤️'];
+  points.forEach((point,i)=>{
+    const el=document.createElement('span');
+    el.className='fall formed-heart';
+    el.textContent=emojis[i%emojis.length];
+    el.style.left=point.x+'%';
+    el.style.top=point.y+'%';
+    el.style.setProperty('--drift',(Math.random()*70-35)+'px');
+    el.style.animationDelay=(i*0.055)+'s';
+    el.style.animationDuration='1.05s';
+    target.appendChild(el);
+  });
+  setTimeout(()=>{
+    celebration.classList.remove('show');
+    message.classList.add('show');
+    if(done)done();
+  },3400);
+}
+surpriseBtn.addEventListener('click',()=>{
+  surpriseBtn.style.display='none';
+  loveReveal.classList.add('show');
+  launchFallingHearts(heartFormation,formedMessage,()=>{
+    lastSurpriseBtn.classList.add('show');
+  });
+});
+lastSurpriseBtn.addEventListener('click',()=>{
+  lastSurpriseBtn.style.display='none';
+  // Fully hide and clear the first message before starting the second heart formation.
+  formedMessage.classList.remove('show');
+  formedMessage.style.visibility='hidden';
+  formedMessage.textContent='';
+  heartFormation.innerHTML='';
+  // The anniversary words are inserted only AFTER the heart emojis finish forming.
+  launchFallingHearts(heartFormation,formedMessage,()=>{
+    formedMessage.innerHTML='HAPPY 5 MONTHS<br>OF US<br><span style="color:#ff9fbd">MERO MUTU ♥</span>';
+    formedMessage.style.visibility='visible';
+    formedMessage.classList.add('show');
+  });
+});
+</script>
+</body></html>
